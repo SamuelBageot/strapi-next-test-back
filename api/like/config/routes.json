@@ -9,22 +9,6 @@
       }
     },
     {
-      "method": "GET",
-      "path": "/likes/count",
-      "handler": "like.count",
-      "config": {
-        "policies": []
-      }
-    },
-    {
-      "method": "GET",
-      "path": "/likes/:id",
-      "handler": "like.findOne",
-      "config": {
-        "policies": []
-      }
-    },
-    {
       "method": "POST",
       "path": "/likes",
       "handler": "like.create",
@@ -33,16 +17,8 @@
       }
     },
     {
-      "method": "PUT",
-      "path": "/likes/:id",
-      "handler": "like.update",
-      "config": {
-        "policies": []
-      }
-    },
-    {
       "method": "DELETE",
-      "path": "/likes/:id",
+      "path": "/likes/:articleId",
       "handler": "like.delete",
       "config": {
         "policies": []
