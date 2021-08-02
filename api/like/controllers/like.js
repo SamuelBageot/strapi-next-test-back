@@ -33,9 +33,9 @@ module.exports = {
             article
         });
 
-        
+
         // console.log(strapi.services.like);
-        
+
         if (found) {
             console.log(found);
             ctx.throw(400, "You already liked this article");
@@ -59,4 +59,32 @@ module.exports = {
 
         return sanitizeEntity(entity, { model: strapi.models.like });
     },
+
+    async delete(ctx) {
+        const { user } = ctx.state;
+        const { articleId } = ctx.params;
+
+        const article = parseInt(articleId);
+
+        if (typeof article !== 'number') {
+            ctx.throw(400, "Please only use the id of the article");
+        }
+
+        const entity = await strapi.services.like.delete({
+            article,
+            user: user.id
+        })
+
+        if (entity.length) {
+            const { likes } = entity[0].article;
+            const updatedArticle = await strapi.services.article.update({
+                id: article
+            }, {
+                likes: likes - 1
+            })
+
+            return sanitizeEntity(entity[0], { model: strapi.models.like });
+
+        }
+    }
 };
